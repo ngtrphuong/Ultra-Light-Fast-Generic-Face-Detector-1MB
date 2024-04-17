@@ -41,7 +41,7 @@ class VOCDataset:
             classes.insert(0, 'BACKGROUND')
             classes = [elem.replace(" ", "") for elem in classes]
             self.class_names = tuple(classes)
-            logging.info("VOC Labels read from file: " + str(self.class_names))
+            logging.info("VOC Labels read from file: %s", str(self.class_names))
 
         else:
             logging.info("No labels file, using default VOC classes.")

@@ -156,11 +156,7 @@ def train(loader, net, criterion, optimizer, device, debug_steps=100, epoch=-1):
             avg_reg_loss = running_regression_loss / debug_steps
             avg_clf_loss = running_classification_loss / debug_steps
             logging.info(
-                f"Epoch: {epoch}, Step: {i}, " +
-                f"Average Loss: {avg_loss:.4f}, " +
-                f"Average Regression Loss {avg_reg_loss:.4f}, " +
-                f"Average Classification Loss: {avg_clf_loss:.4f}"
-            )
+                "%s%s%s%s", f"Epoch: {epoch}, Step: {i}, ", f"Average Loss: {avg_loss:.4f}, ", f"Average Regression Loss {avg_reg_loss:.4f}, ", f"Average Classification Loss: {avg_clf_loss:.4f}")
 
             running_loss = 0.0
             running_regression_loss = 0.0
@@ -316,8 +312,7 @@ if __name__ == '__main__':
         logging.fatal(f"Unsupported optimizer: {args.scheduler}.")
         parser.print_help(sys.stderr)
         sys.exit(1)
-    logging.info(f"Learning rate: {args.lr}, Base net learning rate: {base_net_lr}, "
-                 + f"Extra Layers learning rate: {extra_layers_lr}.")
+    logging.info("%s%s", f"Learning rate: {args.lr}, Base net learning rate: {base_net_lr}, ", f"Extra Layers learning rate: {extra_layers_lr}.")
     if args.optimizer_type != "Adam":
         if args.scheduler == 'multi-step':
             logging.info("Uses MultiStepLR scheduler.")
@@ -350,11 +345,7 @@ if __name__ == '__main__':
             logging.info("lr rate :{}".format(optimizer.param_groups[0]['lr']))
             val_loss, val_regression_loss, val_classification_loss = test(val_loader, net, criterion, DEVICE)
             logging.info(
-                f"Epoch: {epoch}, " +
-                f"Validation Loss: {val_loss:.4f}, " +
-                f"Validation Regression Loss {val_regression_loss:.4f}, " +
-                f"Validation Classification Loss: {val_classification_loss:.4f}"
-            )
+                "%s%s%s%s", f"Epoch: {epoch}, ", f"Validation Loss: {val_loss:.4f}, ", f"Validation Regression Loss {val_regression_loss:.4f}, ", f"Validation Classification Loss: {val_classification_loss:.4f}")
             model_path = os.path.join(args.checkpoint_folder, f"{args.net}-Epoch-{epoch}-Loss-{val_loss}.pth")
             net.module.save(model_path)
             logging.info(f"Saved model {model_path}")
