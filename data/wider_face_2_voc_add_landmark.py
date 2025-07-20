@@ -46,7 +46,7 @@ def convertimgset(img_set="train"):
     lms = []
     with open(gtfilepath, 'r') as gtfile:
         while True:  # and len(faces)<10
-            line = gtfile.readline().strip()
+            line = gtfile.readline(5_000_000).strip()
             if line == "":
                 if len(bboxes) != 0:
                     method_name(bboxes, filename, saveimg, vocannotationdir, lms, img_set)
@@ -281,9 +281,9 @@ def generatetxt(img_set="train"):
             filename = filename.replace("/", "_")
             imgfilepath = datasetprefix + "/images/" + filename
             f.write(imgfilepath + '\n')
-            numbbox = int(gtfile.readline())
+            numbbox = int(gtfile.readline(5_000_000))
             for i in range(numbbox):
-                line = gtfile.readline()
+                line = gtfile.readline(5_000_000)
     f.close()
 
 
@@ -302,9 +302,9 @@ def generatevocsets(img_set="train"):
             filename = filename.replace("/", "_")
             imgfilepath = filename[:-4]
             f.write(imgfilepath + '\n')
-            numbbox = int(gtfile.readline())
+            numbbox = int(gtfile.readline(5_000_000))
             for i in range(numbbox):
-                line = gtfile.readline()
+                line = gtfile.readline(5_000_000)
     f.close()
 
 
